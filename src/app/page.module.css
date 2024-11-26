@@ -1,0 +1,31 @@
+.screen {
+  display: flex;
+  height: 100vh;
+  background-color: #c4c4c4c4;
+  width: 90%;
+  max-height: 600px;
+  border-radius: 8px;
+  justify-content: space-evenly;
+  flex-direction: row; /* Para colocar los botones en una columna */
+  align-items: flex-start; /* Alinea los botones a la izquierda */
+  padding-top: 50px;
+}
+
+.principalScreen {
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.menu {
+  display: flex; /* Activa Flexbox */
+  justify-content: space-between; /* Espacia los elementos */
+  align-items: center; /* Centra verticalmente */
+  width: 90%;
+}
+
+.letter {
+  margin: 0px;
+}

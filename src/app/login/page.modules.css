@@ -1,0 +1,89 @@
+/* Estilos generales para centrar en la pantalla */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+/* Estilo de la imagen */
+.principal_Img Image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+Image {
+  background-color: transparent;
+  align-items: center;
+}
+
+.principal_Img {
+  justify-content: center;
+  border-radius: 50%;
+  background-color: transparent;
+  mix-blend-mode: multiply;
+  background-color: transparent;
+  align-items: center;
+}
+
+/* Estilos del título */
+h2 {
+  margin: 10px 0 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+/* Estilos del formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 320px;
+}
+
+/* Estilos para etiquetas y campos de entrada */
+label {
+  font-size: 14px;
+  color: #555;
+  align-self: flex-start;
+  margin-bottom: 5px;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #111010;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: white;
+}
+
+/* Estilo del botón */
+button[type='submit'] {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+button[type='submit']:hover {
+  background-color: #45a049;
+}

@@ -1,0 +1,37 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  display: flex;
+}
+button {
+  font-size: 16px; /* Tamaño de texto */
+  font-weight: bold; /* Texto gordito */
+  color: #000; /* Texto negro */
+  border: 2px solid #8a8a8a; /* Borde definido */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  cursor: pointer; /* Cambiar cursor al pasar por encima */
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s; /* Animación suave */
+}
+
+button:hover {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra al hacer hover */
+  color: #fff; /* Texto blanco para contraste */
+}
+body {
+  width: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 100%; /* Ancho del contenedor */
+  height: 100%;
+}
