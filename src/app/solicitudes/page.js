@@ -161,7 +161,11 @@ export default function SolicitudesPage() {
             value={newSolicitud.producto}
             onChange={handleInputChange}
             margin="normal"
-            sx={{ marginBottom: 2 }}
+            sx={{
+              '& .MuiInputBase-input': {
+                border: 'none',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -180,7 +184,11 @@ export default function SolicitudesPage() {
             value={newSolicitud.cliente}
             onChange={handleInputChange}
             margin="normal"
-            sx={{ marginBottom: 2 }}
+            sx={{
+              '& .MuiInputBase-input': {
+                border: 'none',
+              },
+            }}
           />
           <Stack direction="row" spacing={2} mt={2} justifyContent="flex-end">
             <Button
@@ -226,7 +234,11 @@ export default function SolicitudesPage() {
               setEditSolicitud({ ...editSolicitud, producto: e.target.value })
             }
             margin="normal"
-            sx={{ marginBottom: 2 }}
+            sx={{
+              '& .MuiInputBase-input': {
+                border: 'none',
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -252,7 +264,11 @@ export default function SolicitudesPage() {
               setEditSolicitud({ ...editSolicitud, cliente: e.target.value })
             }
             margin="normal"
-            sx={{ marginBottom: 2 }}
+            sx={{
+              '& .MuiInputBase-input': {
+                border: 'none',
+              },
+            }}
           />
           <Stack direction="row" spacing={2} mt={2} justifyContent="flex-end">
             <Button

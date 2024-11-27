@@ -186,18 +186,21 @@ export default function ClientsPage() {
         {/* Modal de agregar cliente */}
         <Dialog open={openAddDialog} onClose={handleCloseAddDialog}>
           <DialogTitle>Agregar Cliente</DialogTitle>
-          <DialogContent>
+          <DialogContent aria-hidden="false">
             <TextField
               autoFocus
               margin="dense"
               label="Nombre"
               type="text"
               fullWidth
-              variant="outlined"
               name="name"
               value={newClient.name}
               onChange={handleChange}
-              sx={{ marginBottom: 2 }} // Espacio consistente entre los inputs
+              sx={{
+                '& .MuiInputBase-input': {
+                  border: 'none',
+                },
+              }}
             />
 
             <TextField
@@ -221,7 +224,11 @@ export default function ClientsPage() {
               name="phone"
               value={newClient.phone}
               onChange={handleChange}
-              sx={{ marginBottom: 2 }} // Espacio consistente entre los inputs
+              sx={{
+                '& .MuiInputBase-input': {
+                  border: 'none',
+                },
+              }}
             />
           </DialogContent>
           <DialogActions>
@@ -248,7 +255,11 @@ export default function ClientsPage() {
               name="name"
               value={newClient.name}
               onChange={handleChange}
-              sx={{ marginBottom: 2 }} // Espacio consistente entre los inputs
+              sx={{
+                '& .MuiInputBase-input': {
+                  border: 'none',
+                },
+              }}
             />
 
             <TextField
@@ -260,7 +271,6 @@ export default function ClientsPage() {
               name="email"
               value={newClient.email}
               onChange={handleChange}
-              sx={{ marginBottom: 2 }} // Espacio consistente entre los inputs
             />
 
             <TextField
@@ -272,7 +282,11 @@ export default function ClientsPage() {
               name="phone"
               value={newClient.phone}
               onChange={handleChange}
-              sx={{ marginBottom: 2 }} // Espacio consistente entre los inputs
+              sx={{
+                '& .MuiInputBase-input': {
+                  border: 'none',
+                },
+              }}
             />
           </DialogContent>
           <DialogActions>
