@@ -16,6 +16,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
+import FormHelperText from '@mui/material/FormHelperText'
 
 export default function ClientsPage() {
   // Estado para clientes
@@ -31,6 +32,8 @@ export default function ClientsPage() {
   })
   const [clientToEdit, setClientToEdit] = useState(null)
   const [clientToDelete, setClientToDelete] = useState(null)
+  const [emailError, setEmailError] = useState('')
+  const [formError, setFormError] = useState('')
 
   // Cargar clientes desde localStorage al iniciar la página
   useEffect(() => {
@@ -53,6 +56,8 @@ export default function ClientsPage() {
   // Cerrar modal de agregar cliente
   const handleCloseAddDialog = () => {
     setOpenAddDialog(false)
+    setEmailError('') // Resetear error de email cuando se cierre el modal
+    setFormError('') // Resetear error de formulario
   }
 
   // Abrir modal de editar cliente con datos pre-cargados
@@ -60,6 +65,8 @@ export default function ClientsPage() {
     setClientToEdit(client)
     setNewClient({ ...client }) // Pre-llenar los campos con los datos del cliente
     setOpenEditDialog(true)
+    setEmailError('') // Resetear error de email cuando se abre el modal
+    setFormError('') // Resetear error de formulario
   }
 
   // Cerrar modal de editar cliente
@@ -87,8 +94,29 @@ export default function ClientsPage() {
     }))
   }
 
+  // Función para validar el email
+  const validateEmail = (email) => {
+    return email.includes('@') // Verifica si el email contiene el carácter '@'
+  }
+
+  // Validar si los campos no están vacíos
+  const validateForm = () => {
+    if (!newClient.name || !newClient.email || !newClient.phone) {
+      setFormError('Todos los campos son obligatorios')
+      return false
+    }
+    if (!validateEmail(newClient.email)) {
+      setEmailError('El correo electrónico debe contener un "@"')
+      return false
+    }
+    setFormError('')
+    setEmailError('')
+    return true
+  }
+
   // Agregar un nuevo cliente
   const addClient = () => {
+    if (!validateForm()) return // Solo procede si la validación pasa
     const nextId = clients.length > 0 ? clients[clients.length - 1].id + 1 : 1
     const newClientData = { id: nextId, ...newClient }
     setClients((prevClients) => [...prevClients, newClientData])
@@ -98,6 +126,7 @@ export default function ClientsPage() {
 
   // Editar un cliente existente
   const editClient = () => {
+    if (!validateForm()) return // Solo procede si la validación pasa
     setClients((prevClients) =>
       prevClients.map((client) =>
         client.id === clientToEdit.id ? { ...client, ...newClient } : client
@@ -214,6 +243,7 @@ export default function ClientsPage() {
               onChange={handleChange}
               sx={{ marginBottom: 2 }} // Espacio consistente entre los inputs
             />
+            {emailError && <FormHelperText error>{emailError}</FormHelperText>}
 
             <TextField
               margin="dense"
@@ -230,6 +260,7 @@ export default function ClientsPage() {
                 },
               }}
             />
+            {formError && <FormHelperText error>{formError}</FormHelperText>}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseAddDialog} color="secondary">
@@ -251,15 +282,9 @@ export default function ClientsPage() {
               label="Nombre"
               type="text"
               fullWidth
-              variant="outlined"
               name="name"
               value={newClient.name}
               onChange={handleChange}
-              sx={{
-                '& .MuiInputBase-input': {
-                  border: 'none',
-                },
-              }}
             />
 
             <TextField
@@ -272,6 +297,7 @@ export default function ClientsPage() {
               value={newClient.email}
               onChange={handleChange}
             />
+            {emailError && <FormHelperText error>{emailError}</FormHelperText>}
 
             <TextField
               margin="dense"
@@ -282,11 +308,6 @@ export default function ClientsPage() {
               name="phone"
               value={newClient.phone}
               onChange={handleChange}
-              sx={{
-                '& .MuiInputBase-input': {
-                  border: 'none',
-                },
-              }}
             />
           </DialogContent>
           <DialogActions>
