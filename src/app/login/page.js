@@ -13,7 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault() // Evitar el comportamiento predeterminado del formulario
 
-    // Limpiar el mensaje de error al enviar el formulario
+    // Limpia el mensaje de error al enviar el formulario
     setErrorMessage('')
 
     // Validar las credenciales
