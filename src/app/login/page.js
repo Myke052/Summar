@@ -7,20 +7,30 @@ import { useRouter } from 'next/navigation'
 function Login() {
   const [usuario, setUsuario] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('') // Estado para el mensaje de error
   const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault() // Evitar el comportamiento predeterminado del formulario
 
-    // Escribir directamente las credenciales en las cookies
-    document.cookie = `auth-username=${usuario}; path=/; max-age=3600; secure; SameSite=Strict`
-    document.cookie = `auth-password=${password}; path=/; max-age=3600; secure; SameSite=Strict`
+    // Limpia el mensaje de error al enviar el formulario
+    setErrorMessage('')
 
-    // Simular la validación de usuario y redirigir en caso exitoso
+    // Validar las credenciales
     if (usuario === 'admin' && password === '123') {
-      await router.push('/') // Redirigir al inicio
+      // Guardar las credenciales en cookies
+      document.cookie = `auth-username=${usuario}; path=/; max-age=3600; secure; SameSite=Strict`
+      document.cookie = `auth-password=${password}; path=/; max-age=3600; secure; SameSite=Strict`
+
+      // Redirigir al inicio si las credenciales son correctas
+      await router.push('/')
     } else {
-      console.log('Credenciales incorrectas') // Mensaje en caso de error
+      // Mostrar el mensaje de error si las credenciales son incorrectas
+      if (usuario !== 'admin') {
+        setErrorMessage('Usuario incorrecto')
+      } else if (password !== '123') {
+        setErrorMessage('Contraseña incorrecta')
+      }
     }
   }
 
@@ -32,9 +42,12 @@ function Login() {
       </div>
       <h2>Inicio de Sesión</h2>
 
-      <div id="error-message" style={{ color: 'red', display: 'none' }}>
-        {/* Aquí puedes incluir un mensaje dinámico */}
-      </div>
+      {/* Mostrar el mensaje de error si existe */}
+      {errorMessage && (
+        <div id="error-message" style={{ color: 'red', marginBottom: '20px' }}>
+          <p>{errorMessage}</p>
+        </div>
+      )}
 
       <form id="login-form" onSubmit={handleSubmit}>
         <label htmlFor="username">Usuario:</label>

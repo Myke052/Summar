@@ -25,6 +25,11 @@ export default function SolicitudesPage() {
     cantidad: '',
     cliente: '',
   })
+  const [errors, setErrors] = useState({
+    producto: '',
+    cantidad: '',
+    cliente: '',
+  })
 
   // Cargar solicitudes desde el localStorage al cargar la página
   useEffect(() => {
@@ -51,9 +56,43 @@ export default function SolicitudesPage() {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setNewSolicitud({ ...newSolicitud, [name]: value })
+    setErrors({ ...errors, [name]: '' }) // Limpiar el error cuando se cambia el campo
+  }
+
+  const validateSolicitud = () => {
+    let valid = true
+    let newErrors = { producto: '', cantidad: '', cliente: '' }
+
+    // Validación de campos vacíos
+    if (!newSolicitud.producto) {
+      newErrors.producto = 'El producto es obligatorio.'
+      valid = false
+    }
+    if (!newSolicitud.cantidad) {
+      newErrors.cantidad = 'La cantidad es obligatoria.'
+      valid = false
+    }
+    if (!newSolicitud.cliente) {
+      newErrors.cliente = 'El cliente es obligatorio.'
+      valid = false
+    }
+
+    // Validación de cantidad mayor a 0
+    if (parseInt(newSolicitud.cantidad, 10) <= 0) {
+      newErrors.cantidad = 'La cantidad debe ser mayor a 0.'
+      valid = false
+    }
+
+    setErrors(newErrors)
+    return valid
   }
 
   const handleCreateSolicitud = () => {
+    // Validar antes de continuar
+    if (!validateSolicitud()) {
+      return
+    }
+
     const nextId =
       solicitudes.length > 0 ? solicitudes[solicitudes.length - 1].id + 1 : 1
     const nuevaSolicitud = {
@@ -61,6 +100,7 @@ export default function SolicitudesPage() {
       ...newSolicitud,
       cantidad: parseInt(newSolicitud.cantidad, 10),
     }
+
     setSolicitudes((prev) => [...prev, nuevaSolicitud])
     setNewSolicitud({ producto: '', cantidad: '', cliente: '' })
     handleCloseCreate()
@@ -161,6 +201,8 @@ export default function SolicitudesPage() {
             value={newSolicitud.producto}
             onChange={handleInputChange}
             margin="normal"
+            error={!!errors.producto}
+            helperText={errors.producto}
             sx={{
               '& .MuiInputBase-input': {
                 border: 'none',
@@ -175,6 +217,8 @@ export default function SolicitudesPage() {
             onChange={handleInputChange}
             margin="normal"
             type="number"
+            error={!!errors.cantidad}
+            helperText={errors.cantidad}
             sx={{ marginBottom: 2 }}
           />
           <TextField
@@ -184,6 +228,8 @@ export default function SolicitudesPage() {
             value={newSolicitud.cliente}
             onChange={handleInputChange}
             margin="normal"
+            error={!!errors.cliente}
+            helperText={errors.cliente}
             sx={{
               '& .MuiInputBase-input': {
                 border: 'none',
@@ -234,11 +280,6 @@ export default function SolicitudesPage() {
               setEditSolicitud({ ...editSolicitud, producto: e.target.value })
             }
             margin="normal"
-            sx={{
-              '& .MuiInputBase-input': {
-                border: 'none',
-              },
-            }}
           />
           <TextField
             fullWidth
@@ -246,14 +287,10 @@ export default function SolicitudesPage() {
             name="cantidad"
             value={editSolicitud?.cantidad || ''}
             onChange={(e) =>
-              setEditSolicitud({
-                ...editSolicitud,
-                cantidad: parseInt(e.target.value, 10),
-              })
+              setEditSolicitud({ ...editSolicitud, cantidad: e.target.value })
             }
             margin="normal"
             type="number"
-            sx={{ marginBottom: 2 }}
           />
           <TextField
             fullWidth
@@ -264,11 +301,6 @@ export default function SolicitudesPage() {
               setEditSolicitud({ ...editSolicitud, cliente: e.target.value })
             }
             margin="normal"
-            sx={{
-              '& .MuiInputBase-input': {
-                border: 'none',
-              },
-            }}
           />
           <Stack direction="row" spacing={2} mt={2} justifyContent="flex-end">
             <Button
