@@ -94,9 +94,17 @@ export default function ClientsPage() {
     }))
   }
 
+  //Expresion regular para la validacion de los correos electronicos
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   // Función para validar el email
   const validateEmail = (email) => {
-    return email.includes('@') // Verifica si el email contiene el carácter '@'
+    if (emailRegex.test(email)) {
+      return true;
+    } else {
+      return false;
+    }
+    // return email.includes('@') // Verifica si el email contiene el carácter '@'
   }
 
   // Validar si los campos no están vacíos
@@ -106,7 +114,7 @@ export default function ClientsPage() {
       return false
     }
     if (!validateEmail(newClient.email)) {
-      setEmailError('El correo electrónico debe contener un "@"')
+      setEmailError('El correo electrónico es invalido')
       return false
     }
     setFormError('')
